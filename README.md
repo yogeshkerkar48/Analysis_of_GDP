@@ -192,8 +192,10 @@ This document provides a step-by-step guide to set up and dockerize the 2FA (Two
         │   package.json
         │   src/views/   #all 5 view files
         │   package-lock.json
+        |   src/router/index.js
         │   .dockerignore
-        │   .index.html
+        │    index.html
+        |    vite.config.js 
 
 ```
 
