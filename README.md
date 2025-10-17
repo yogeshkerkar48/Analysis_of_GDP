@@ -152,14 +152,6 @@ my-2fa-app/
    ```
 4. Access the app at `http://localhost:8080`.
 
-## Testing
-- Use `curl` to test backend APIs:
-  - Register: `curl -v -X POST http://localhost:8000/register -d "username=testuser&password=testpass" -c cookies.txt`
-  - Login: `curl -v -X POST http://localhost:8000/login -d "username=testuser&password=testpass" -b cookies.txt -c cookies.txt`
-  - Enable 2FA: `curl -v -b cookies.txt http://localhost:8000/enable_2fa`
-  - Verify 2FA: `curl -v -X POST -b cookies.txt http://localhost:8000/verify_2fa -d "otp=<6-digit-OTP>"`
-  - Dashboard: `curl -v -b cookies.txt http://localhost:8000/dashboard`
-  - Logout: `curl -v -b cookies.txt http://localhost:8000/logout`
 - Test the full flow in the browser at `http://localhost:8080`.
 
 ## Dockerization Setup Process for 2FA Application
