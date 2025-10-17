@@ -362,6 +362,9 @@ CMD ["nginx", "-g", "daemon off;"]
 ### Conclusion
 This process dockerizes the 2FA application, ensuring a reproducible setup. The data persists in the `dbdata` volume, and the application is accessible at `http://localhost:8080` (frontend) and `http://localhost:8000` (backend API).
 
+## Dockerizing the setup of an application
+- [YOUTUBE](https://www.youtube.com/watch?v=tV1pKMJDFZY)
+
 ## Use of AI Tools
 - [GROK](https://grok.com/)
 - [CHATGPT](https://chatgpt.com/)
