@@ -93,7 +93,7 @@ my-2fa-app/
 │   ├── index.html        # Entry HTML file
 │   ├── package.json      # Node.js project configuration
 │   ├── vite.config.js    # Vite configuration
-├── README (1).md         # This file
+├──          
 ```
 
 ## API Design
@@ -171,30 +171,20 @@ This document provides a step-by-step guide to set up and dockerize the 2FA (Two
   - **Backend**: FastAPI-based API for user registration, login, and 2FA management.
   - **Frontend**: Vue.js application served via Nginx.
   - **Database**: MySQL 8.0 for storing user data.
-- **Directory**: `D:\Yogesh YK\CDAC PREP\docker\todayv2\AUTHETICATORAPP`
-- **Docker Tools**: Docker, Docker Compose
-- **Date Created**: October 17, 2025
 
-### Prerequisites
-- **System Requirements**:
-  - Windows 10/11 (64-bit, Pro/Enterprise/Education) with WSL 2 enabled.
-  - Minimum 4GB RAM (8GB recommended), 10GB free disk space.
-  - Virtualization (VT-x/AMD-V) enabled in BIOS, Hyper-V enabled.
 - **Software**:
   - Docker Desktop (latest version, e.g., 4.29.0) installed and running.
-    - Verify: `docker --version` and `docker-compose --version` in PowerShell.
-  - Git (optional, for version control).
   - Python 3.12 (for local backend development).
   - Node.js and npm (for local frontend development).
 - **Account**:
-  - Docker Hub account (for pushing images, optional).
+  - Docker Hub account (for pushing images).
 
 ### Project Structure
 ```
-D:\Yogesh YK\CDAC PREP\docker\todayv2
+
 └───AUTHETICATORAPP
     │   docker-compose.yml
-    │   2faauthenticator/.env
+    │   .env
     │   .dockerignore
     │
     └───backend
@@ -204,103 +194,65 @@ D:\Yogesh YK\CDAC PREP\docker\todayv2
     │   │   .dockerignore
     │
     └───frontend
+        ├   App.vue       
+        ├   main.js       
         │   Dockerfile
         │   package.json
-        │   src/
-        │   dist/  (generated after build)
+        │   src/views/   #all 5 view files
+        │   package-lock.json
         │   .dockerignore
+        │   .index.html
+
 ```
 
 ### Setup Process
 #### 1. Install Docker and Dependencies
-- Download and install Docker Desktop from [docker.com](https://www.docker.com/products/docker-desktop/).
+- Download and install Docker Desktop 
 - Enable WSL 2:
   - Run `wsl --install` in PowerShell (as Administrator).
-  - Install a Linux distro (e.g., Ubuntu) from the Microsoft Store.
-  - Set default: `wsl --set-default-version 2`.
+  
 - Verify installation:
-  ```powershell
+  ```CMD
   docker --version
-  docker-compose --version
-  wsl -l -v
-  ```
-- Allocate resources in Docker Desktop (Settings > Resources): 4 CPUs, 8GB memory.
 
 #### 2. Prepare the Project Directory
-- Clone or copy the project to `D:\Yogesh YK\CDAC PREP\docker\todayv2\AUTHETICATORAPP`.
+- COPY the project to `VERSION2AUTHETICATOR directory`.
 - Ensure the following files exist:
   - `docker-compose.yml`: Defines services (db, backend, frontend).
-  - `2faauthenticator/.env`: Contains environment variables.
+  - `VERSION2AUTHETICATOR/.env`: Contains environment variables.
   - `.dockerignore`: Excludes sensitive files from the build.
   - `backend/Dockerfile`: Builds the FastAPI image.
   - `frontend/Dockerfile`: Builds the Vue.js image.
   - `requirements.txt`: Lists Python dependencies.
 
-#### 3. Configure Environment Variables
-- Create or update `2faauthenticator/.env` with:
-  ```
-  DB_HOST=db
-  DB_USER=app_user
-  DB_PASSWORD=securepassword123
-  DB_NAME=2fa_db
-  MYSQL_ROOT_PASSWORD=strongrootpassword456
-  SESSION_SECRET_KEY=your_random_session_secret_key
-  ```
-  - Generate `SESSION_SECRET_KEY` with: `python -c "import secrets; print(secrets.token_hex(32))"`.
-  - Exclude `.env` from Git with `.gitignore`:
-    ```
-    .env
-    2faauthenticator/.env
-    backend/.env
-    ```
-
 #### 4. Create `.dockerignore` Files
 - Prevent sensitive files (e.g., `.env`) from being copied into images.
-- `AUTHETICATORAPP/.dockerignore` (root level):
-  ```
-  .env
-  *.log
-  ```
-- `backend/.dockerignore`:
-  ```
-  .env
-  *.pyc
-  __pycache__
-  *.py[cod]
-  *$py.class
-  ```
-- `frontend/.dockerignore`:
-  ```
-  .env
-  node_modules
-  *.log
-  ```
 
 #### 5. Build and Run the Application
 - Navigate to the project directory:
-  ```powershell
-  cd "D:\Yogesh YK\CDAC PREP\docker\todayv2\AUTHETICATORAPP"
+  ```VS CODE
+  cd "D:\VERSION2AUTHETICATOR"
   ```
 - Build the images:
-  ```powershell
+  ```VS CODE
   docker-compose build
   ```
 - Start the containers:
-  ```powershell
+  ```VS CODE
   docker-compose up -d
   ```
 - Verify container status:
-  ```powershell
+  ```VS CODE
   docker-compose ps
   ```
-  - Expected: All three containers (`todayv2-backend-1`, `todayv2-db-1`, `todayv2-frontend-1`) show `Up`.
+  - Expected: All three containers (`VERSION2AUTHETICATOR-backend`, `VERSION2AUTHETICATOR-db`, `VERSION2AUTHETICATOR-frontend`) show `Up`.
 
 #### 6. Test the Application
 - **Frontend**: Open `http://localhost:8080` in a browser to verify the UI.
 - **Backend**: Access `http://localhost:8000/docs` for the API documentation.
 - **Registration/Login**: Test user registration and login with 2FA.
 - **Data Verification**: Connect to MySQL:
-  ```powershell
+  ```VS CODE
   docker-compose exec db mysql -u app_user -psecurepassword123 2fa_db
   ```
   - Run: `SELECT * FROM users;` to view stored data.
@@ -310,25 +262,25 @@ D:\Yogesh YK\CDAC PREP\docker\todayv2
   - Check logs: `docker-compose logs <service>` (e.g., `backend`).
   - Ensure dependencies (e.g., `python-multipart`) are in `requirements.txt`.
 - **Connection Refused**:
-  - Verify `DB_HOST` is `db` and MySQL is ready (adjust `healthcheck` retries).
+  - Verify `DB_HOST` is `db` and MySQL is ready .
 - **Docker Desktop Empty**:
-  - Restart Docker Desktop or reset to factory settings (Settings > Reset).
-  - Check context: `docker context ls` and switch if needed.
+  - Restart Docker Desktop .
+  
 
-#### 8. Push to Docker Hub (Optional)
+#### 8. Push to Docker Hub 
 - Log in:
-  ```powershell
+  ```VS CODE
   docker login
   ```
 - Tag images:
-  ```powershell
-  docker tag todayv2_backend:latest yourusername/todayv2-backend:latest
-  docker tag todayv2_frontend:latest yourusername/todayv2-frontend:latest
+  ```VS CODE
+  docker tag VERSION2AUTHETICATOR_backend:latest yourusername/VERSION2AUTHETICATOR-backend:latest
+  docker tag VERSION2AUTHETICATOR_frontend:latest yourusername/VERSION2AUTHETICATOR-frontend:latest
   ```
 - Push images:
-  ```powershell
-  docker push yourusername/todayv2-backend:latest
-  docker push yourusername/todayv2-frontend:latest
+  ```VS CODE
+  docker push yourusername/VERSION2AUTHETICATOR-backend:latest
+  docker push yourusername/VERSION2AUTHETICATOR-frontend:latest
 ```
 
 ### Configuration Files
@@ -346,13 +298,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - dbdata:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
-      interval: 5s
-      timeout: 20s
-      retries: 20
-      start_period: 30s
-
+    
   backend:
     build: ./backend
     ports:
@@ -364,8 +310,7 @@ services:
       DB_NAME: ${DB_NAME}
       SESSION_SECRET_KEY: ${SESSION_SECRET_KEY}
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   frontend:
     build: ./frontend
@@ -394,23 +339,30 @@ CMD ["sh", "-c", "sleep 30 && uvicorn app:app --host 0.0.0.0 --port 8000"]
 
 #### `frontend/Dockerfile`
 ```dockerfile
+# Build stage
+FROM node:18 AS build
+
+WORKDIR /app
+
+# Copy package files and install all dependencies (including dev deps for build)
+COPY package.json package-lock.json ./
+RUN npm ci  
+# Copy source code and build
+COPY . .
+RUN npm run build
+
+# Production stage
 FROM nginx:alpine
 
-COPY dist/ /usr/share/nginx/html
+# Copy built assets
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-### Maintenance
-- **Backup Data**: Export database:
-  ```powershell
-  docker-compose exec db mysqldump -u app_user -psecurepassword123 2fa_db > backup.sql
-  ```
-- **Update Images**: Re-run `docker-compose build` after code changes.
-- **Clean Up**: Remove unused containers/images:
-  ```powershell
-  docker system prune
-  ```
 
 ### Conclusion
 This process dockerizes the 2FA application, ensuring a reproducible setup. The data persists in the `dbdata` volume, and the application is accessible at `http://localhost:8080` (frontend) and `http://localhost:8000` (backend API).
