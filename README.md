@@ -273,12 +273,12 @@ This document provides a step-by-step guide to set up and dockerize the 2FA (Two
   ```VS CODE
   docker push yourusername/VERSION2AUTHETICATOR-backend:latest
   docker push yourusername/VERSION2AUTHETICATOR-frontend:latest
-```
 
-### Configuration Files
+
 
 #### `docker-compose.yml`
-```yaml
+
+``` yaml
 services:
   db:
     image: mysql:8.0
