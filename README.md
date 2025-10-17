@@ -164,7 +164,7 @@ my-2fa-app/
 
 ## Dockerization Setup Process for 2FA Application
 
-This document provides a step-by-step guide to set up and dockerize the 2FA (Two-Factor Authentication) application, consisting of a FastAPI backend, a Vue.js frontend, and a MySQL database. The setup uses Docker and Docker Compose to containerize the application, ensuring portability and consistency across development, testing, and production environments.
+This document provides a step-by-step guide to set up and dockerize the 2FA (Two-Factor Authentication) application, consisting of a FastAPI backend, a Vue.js frontend, and a MySQL database. The setup uses Docker to containerize the application, ensuring portability and consistency across development, testing, and production environments.
 
 ### Overview
 - **Application Components**:
@@ -173,8 +173,8 @@ This document provides a step-by-step guide to set up and dockerize the 2FA (Two
   - **Database**: MySQL 8.0 for storing user data.
 
 - **Software**:
-  - Docker Desktop (latest version, e.g., 4.29.0) installed and running.
-  - Python 3.12 (for local backend development).
+  - Docker Desktop installed and running.
+  - Python 3.11 (for local backend development).
   - Node.js and npm (for local frontend development).
 - **Account**:
   - Docker Hub account (for pushing images).
